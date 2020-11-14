@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using WebApi.Services;
 
 namespace WebApi.Controllers
 {
@@ -8,17 +9,17 @@ namespace WebApi.Controllers
     public class SamplesController 
         : ControllerBase
     {
-        private readonly IConfiguration _configuration;
+        private readonly IMyService _myService;
 
-        public SamplesController(IConfiguration configuration)
+        public SamplesController(IMyService myService)
         {
-            _configuration = configuration;
+            _myService = myService;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            var value = _configuration.GetValue<string>("Foo.Bar");
+            var value = _myService.GetValue();
             return Ok(value);
         }
     }
